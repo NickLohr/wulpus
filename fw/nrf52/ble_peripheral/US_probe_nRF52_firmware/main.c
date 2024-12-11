@@ -52,6 +52,13 @@
 #include "us_ble.h"
 #include "us_defines.h"
 
+#include "iis2dh.h"
+
+#include "nrf_log_backend_rtt.h"
+#include "nrf_log.h"
+#include "nrf_log_default_backends.h"
+#include "nrf_log_ctrl.h"
+
 // Buffers to store US data
 ArrayList_type m_rx_buf[NUMBER_OF_XFERS*MAX_BUFFER_NUMBER_OF_US_FRAMES] = {0};
 
@@ -171,13 +178,33 @@ static void gpio_init(void)
  */
 int main(void)
 {
-
+    APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
+    NRF_LOG_DEFAULT_BACKENDS_INIT();
+    NRF_LOG_INFO("start test");
     // Initialize
     timers_init();
     power_management_init();
     us_ble_init();
     gpio_init();
     us_spi_init();
+    IIS2DH_init();
+    NRF_LOG_INFO("start test");
+    setupAccelormeter(IIS2DH_NormalMode, AllModes_100Hz, IIS2DH_Precision_2g);
+    uint8_t rx_buffer[1] ={0};
+    NRF_LOG_INFO("start test");
+
+    IIS2DH_register_read(IIS2DH_REG_WHOAMI, rx_buffer, 1);
+    
+    NRF_LOG_INFO("WHOAMI: %d", rx_buffer[0]);
+
+    while(true){
+      uint16_t X, Y, Z;
+      getAccelerationData(&X, &Y, &Z, IIS2DH_NormalMode, IIS2DH_Precision_2g);
+      NRF_LOG_INFO("X: %d,  Y: %d,  Z: %d", X,Y,Z);
+      //NRF_LOG_INFO("Y: %d", Y);
+      //NRF_LOG_INFO("Z: %d", Z);
+      //nrf_delay_ms(2000);
+    }
 
 
     // Tell MSP430 that the BLE connection is not ready yet
@@ -207,6 +234,7 @@ int main(void)
     // Enter main loop.
     while(1)
     {
+        
         send_pending_frames();
         idle_state_handle();
     }
