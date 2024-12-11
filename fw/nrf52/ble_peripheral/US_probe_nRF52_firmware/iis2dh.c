@@ -7,6 +7,12 @@ static const nrf_drv_twi_t IIS2DH_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
 static volatile bool IIS2DH_xfer_done = false;
 
 
+uint8_t IIS2DH_buffer[805] = {};
+uint16_t IIS2DH_buffer_index =0;
+/* Frame counter for IIS2DH over bluetooth */
+uint16_t IIS2DH_frame_number =0;
+
+
 //Event Handler
 static void twi_handler(nrf_drv_twi_evt_t const * p_event, void * p_context)
 {
@@ -53,7 +59,8 @@ void IIS2DH_init()
     iis2dh_twi_init();
     IIS2DH_buffer[0] = 0xFF;
     IIS2DH_buffer[1] = 128;
-    IIS2DH_buffer_index = 2;
+    ((uint16_t*)IIS2DH_buffer)[1] = IIS2DH_frame_number++;
+    IIS2DH_buffer_index = 4;
     nrf_delay_ms(500);
     // TODO write setup (control registers)
 }
@@ -233,8 +240,14 @@ bool getAccelerationData(uint16_t* X, uint16_t* Y, uint16_t* Z, IIS2DH_Operating
 void getIIS2DHData2Buffer(){
   IIS2DH_register_read(IIS2DH_REG_OUT_X_L, &IIS2DH_buffer[IIS2DH_buffer_index], 6);  // todo read 6
   IIS2DH_buffer_index +=6;
+  
   if (IIS2DH_buffer_index >=800){
-    
+    send_packet(IIS2DH_buffer, 201);
+    send_packet(&IIS2DH_buffer[201], 201);
+    send_packet(&IIS2DH_buffer[401], 201);
+    ((uint16_t*)IIS2DH_buffer)[1] = IIS2DH_frame_number++;
+    IIS2DH_buffer_index = 4;
+
   }
 
 

@@ -76,6 +76,8 @@ volatile bool ble_connected = false;
 // A flag to signal that MSP config is received
 volatile bool msp_conf_received = false;
 
+volatile bool do_act_reading=false;
+
 /**@brief Function for initializing the timer module.
  */
 static void timers_init(void)
@@ -139,6 +141,8 @@ void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
         // Enable timer and counter to start the four SPI transactions
         nrf_drv_timer_enable(&timer_timer);
         nrf_drv_timer_enable(&timer_counter);
+        //do_act_reading =true;
+
     }
 }
 
@@ -187,25 +191,19 @@ int main(void)
     us_ble_init();
     gpio_init();
     us_spi_init();
-    IIS2DH_init();
-    NRF_LOG_INFO("start test");
-    setupAccelormeter(IIS2DH_NormalMode, AllModes_100Hz, IIS2DH_Precision_2g);
-    uint8_t rx_buffer[1] ={0};
-    NRF_LOG_INFO("start test");
-
-    IIS2DH_register_read(IIS2DH_REG_WHOAMI, rx_buffer, 1);
+    //IIS2DH_init();
     
-    NRF_LOG_INFO("WHOAMI: %d", rx_buffer[0]);
 
+/*
     while(true){
       uint16_t X, Y, Z;
       getAccelerationData(&X, &Y, &Z, IIS2DH_NormalMode, IIS2DH_Precision_2g);
       NRF_LOG_INFO("X: %d,  Y: %d,  Z: %d", X,Y,Z);
       //NRF_LOG_INFO("Y: %d", Y);
       //NRF_LOG_INFO("Z: %d", Z);
-      //nrf_delay_ms(2000);
+      nrf_delay_ms(2000);
     }
-
+  */
 
     // Tell MSP430 that the BLE connection is not ready yet
     nrf_drv_gpiote_out_clear(PIN_BLE_CONN_READY);
@@ -234,7 +232,10 @@ int main(void)
     // Enter main loop.
     while(1)
     {
-        
+        //if (do_act_reading){
+          //getIIS2DHData2Buffer();
+          //do_act_reading = false;
+        //}
         send_pending_frames();
         idle_state_handle();
     }

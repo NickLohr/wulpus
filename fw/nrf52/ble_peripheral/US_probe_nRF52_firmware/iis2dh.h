@@ -7,6 +7,7 @@
 #include "app_error.h"
 #include "nrf_drv_twi.h"
 #include "nrf_delay.h"
+#include "us_ble.h"
 
 
 #define IIS2DH_REG_WHOAMI 0x0F
@@ -52,8 +53,11 @@
 #endif
 
 
-uint8_t IIS2DH_buffer[805];
-uint16_t IIS2DH_buffer_index =0;
+extern uint8_t IIS2DH_buffer[805];
+extern uint16_t IIS2DH_buffer_index;
+/* Frame counter for IIS2DH over bluetooth */
+extern uint16_t IIS2DH_frame_number;
+
 
 typedef enum {
   IIS2DH_LowPowerMode = 0,
@@ -109,6 +113,8 @@ int8_t getTemp();
 bool setupAccelormeter(IIS2DH_OperatingModes mode, IIS2DH_DataRate rate, IIS2DH_FullScale fs);
 bool getAccelerationData(uint16_t* X, uint16_t* Y, uint16_t* Z, IIS2DH_OperatingModes mode, IIS2DH_FullScale range);
 
+
+void getIIS2DHData2Buffer();
 #endif
 
 

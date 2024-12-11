@@ -45,7 +45,7 @@ class WulpusGuiSingleCh(widgets.VBox):
      
     def __init__(self, com_link:WulpusDongle, uss_conf, max_vis_fps = 20):
         super().__init__()
-        
+        print("Init")
         # Communication link
         self.com_link = com_link
         
@@ -266,6 +266,7 @@ class WulpusGuiSingleCh(widgets.VBox):
     # Callbacks
     
     def click_scan_ports(self, b):
+        print("Scan")
         # Update drop-down for ports and make it enabled
         self.found_devices = self.com_link.get_available()
 
@@ -281,7 +282,7 @@ class WulpusGuiSingleCh(widgets.VBox):
             self.ser_open_button.disabled = False
         
     def click_open_port(self, b):
-        
+        print("Open Port")
         if not self.port_opened and len(self.ports_dd.options) > 0:
             device = self.found_devices[self.ports_dd.index]
             
@@ -294,7 +295,7 @@ class WulpusGuiSingleCh(widgets.VBox):
             b.description = "Close port"
             self.port_opened = True
             self.start_stop_button.disabled = False
-            
+            print("Port Opened")
         else :
             self.com_link.close()
             b.description = "Open port"
@@ -338,7 +339,7 @@ class WulpusGuiSingleCh(widgets.VBox):
         
         
     def click_start_stop_acq(self, b):
-
+        
         if not self.acquisition_running:
             # Enable the widgets active during acquisition
             self.raw_data_check.disabled  = False
@@ -438,6 +439,12 @@ class WulpusGuiSingleCh(widgets.VBox):
                 # and other params
                 self.acq_num_arr[self.data_cnt] = data[1]
                 self.tx_rx_id_arr[self.data_cnt] = data[2]
+
+                if data[2] == 128:
+                    print(data)
+                print("Raw data: ", data)
+                with open("test.json", "w+") as f:
+                    f.write(data)
 
                 # Save data to specific z
                 self.data_arr_bmode[self.tx_rx_id_arr[self.data_cnt]] = self.get_envelope(
