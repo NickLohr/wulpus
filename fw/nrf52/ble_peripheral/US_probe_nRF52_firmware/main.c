@@ -193,7 +193,7 @@ int main(void)
     us_spi_init();
     IIS2DH_init();
     
-    setupAccelormeter(IIS2DH_NormalMode, AllModes_100Hz, IIS2DH_Precision_2g);
+    setupAccelormeter(IIS2DH_NormalMode, AllModes_400Hz, IIS2DH_Precision_2g);
 /*
     while(true){
       uint16_t X, Y, Z;

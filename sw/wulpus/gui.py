@@ -432,7 +432,7 @@ class WulpusGuiSingleCh(widgets.VBox):
                 if data[2] == 128:
                     with open("test_d.json", "a+") as f:
                         f.write(str(data)+"\n")
-                    #continue
+                    
                     
                 self.current_data = data
 
