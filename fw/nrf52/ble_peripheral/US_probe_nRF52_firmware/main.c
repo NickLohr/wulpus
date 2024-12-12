@@ -141,7 +141,7 @@ void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
         // Enable timer and counter to start the four SPI transactions
         nrf_drv_timer_enable(&timer_timer);
         nrf_drv_timer_enable(&timer_counter);
-        //do_act_reading =true;
+        do_act_reading =true;
 
     }
 }
@@ -191,9 +191,9 @@ int main(void)
     us_ble_init();
     gpio_init();
     us_spi_init();
-    //IIS2DH_init();
+    IIS2DH_init();
     
-
+    setupAccelormeter(IIS2DH_NormalMode, AllModes_100Hz, IIS2DH_Precision_2g);
 /*
     while(true){
       uint16_t X, Y, Z;
@@ -232,10 +232,10 @@ int main(void)
     // Enter main loop.
     while(1)
     {
-        //if (do_act_reading){
-          //getIIS2DHData2Buffer();
-          //do_act_reading = false;
-        //}
+        if (do_act_reading){
+          getIIS2DHData2Buffer();
+          do_act_reading = false;
+        }
         send_pending_frames();
         idle_state_handle();
     }

@@ -36,4 +36,6 @@
      */
     void advertising_start(void);
 
+    void send_packet(uint8_t* start_address, uint16_t length);
+
 #endif

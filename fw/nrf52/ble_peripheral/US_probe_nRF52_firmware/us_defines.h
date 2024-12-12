@@ -28,7 +28,7 @@
 #define US_DEFINES_H
 
     // Name of device. Will be included in the advertising data.
-    #define DEVICE_NAME  "WULPUS_PROBE_0"
+    #define DEVICE_NAME  "WULPUS_PROBE_21"
 
     // Number of bytes per transfer to send to SPI slave
     #define BYTES_PR_XFER_TX   201

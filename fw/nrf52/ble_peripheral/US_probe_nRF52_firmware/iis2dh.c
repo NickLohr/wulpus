@@ -59,7 +59,10 @@ void IIS2DH_init()
     iis2dh_twi_init();
     IIS2DH_buffer[0] = 0xFF;
     IIS2DH_buffer[1] = 128;
-    ((uint16_t*)IIS2DH_buffer)[1] = IIS2DH_frame_number++;
+    //((uint16_t*)IIS2DH_buffer)[1] = IIS2DH_frame_number++;
+        IIS2DH_buffer[3] = 0;
+    IIS2DH_buffer[2] = IIS2DH_frame_number++;
+
     IIS2DH_buffer_index = 4;
     nrf_delay_ms(500);
     // TODO write setup (control registers)
@@ -238,14 +241,31 @@ bool getAccelerationData(uint16_t* X, uint16_t* Y, uint16_t* Z, IIS2DH_Operating
 
 
 void getIIS2DHData2Buffer(){
-  IIS2DH_register_read(IIS2DH_REG_OUT_X_L, &IIS2DH_buffer[IIS2DH_buffer_index], 6);  // todo read 6
+  IIS2DH_register_read(IIS2DH_REG_OUT_X_L, &IIS2DH_buffer[IIS2DH_buffer_index++], 1); 
+  IIS2DH_register_read(IIS2DH_REG_OUT_X_H, &IIS2DH_buffer[IIS2DH_buffer_index++], 1); 
+  IIS2DH_register_read(IIS2DH_REG_OUT_Y_L, &IIS2DH_buffer[IIS2DH_buffer_index++], 1); 
+  IIS2DH_register_read(IIS2DH_REG_OUT_Y_H, &IIS2DH_buffer[IIS2DH_buffer_index++], 1); 
+  IIS2DH_register_read(IIS2DH_REG_OUT_Z_L, &IIS2DH_buffer[IIS2DH_buffer_index++], 1); 
+  IIS2DH_register_read(IIS2DH_REG_OUT_Z_H, &IIS2DH_buffer[IIS2DH_buffer_index++], 1); 
+  IIS2DH_buffer_index -=6;
+  NRF_LOG_INFO("Received: %u", IIS2DH_buffer_index);
+  NRF_LOG_INFO("1: %d, 2: %d, 3: %d, 4: %u, 5: %u, 6: %u", IIS2DH_buffer[IIS2DH_buffer_index],
+                                              IIS2DH_buffer[IIS2DH_buffer_index+1],
+                                              IIS2DH_buffer[IIS2DH_buffer_index+2],
+                                              IIS2DH_buffer[IIS2DH_buffer_index+3],
+                                              IIS2DH_buffer[IIS2DH_buffer_index+4],
+                                              IIS2DH_buffer[IIS2DH_buffer_index+5]);
   IIS2DH_buffer_index +=6;
-  
   if (IIS2DH_buffer_index >=800){
-    send_packet(IIS2DH_buffer, 201);
-    send_packet(&IIS2DH_buffer[201], 201);
-    send_packet(&IIS2DH_buffer[401], 201);
-    ((uint16_t*)IIS2DH_buffer)[1] = IIS2DH_frame_number++;
+  NRF_LOG_INFO("Sending...");
+    send_packet(IIS2DH_buffer, 202);
+    send_packet(&IIS2DH_buffer[202], 201);
+    send_packet(&IIS2DH_buffer[403], 201);
+    send_packet(&IIS2DH_buffer[604], 201);
+    //((uint16_t*)&IIS2DH_buffer)[1] = IIS2DH_frame_number++;
+    IIS2DH_buffer[3] = 0;
+    IIS2DH_buffer[2] = IIS2DH_frame_number++;
+
     IIS2DH_buffer_index = 4;
 
   }

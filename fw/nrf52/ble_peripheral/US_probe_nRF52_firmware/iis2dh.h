@@ -10,6 +10,11 @@
 #include "us_ble.h"
 
 
+#include "nrf_log_backend_rtt.h"
+#include "nrf_log.h"
+#include "nrf_log_default_backends.h"
+#include "nrf_log_ctrl.h"
+
 #define IIS2DH_REG_WHOAMI 0x0F
 #define IIS2DH_REG_OUT_X_L 0x28
 #define IIS2DH_REG_OUT_Y_L 0x2A

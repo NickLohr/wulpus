@@ -64,4 +64,24 @@ Output/Debug/Obj/US_probe_nRF52_firmware/iis2dh.o: \
  C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/modules/nrfx/drivers/include/nrfx_twi.h \
  C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/modules/nrfx/hal/nrf_twi.h \
  C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/delay/nrf_delay.h \
- C:\Users\nicol\Documents\wulpus\fw\nrf52\ble_peripheral\US_probe_nRF52_firmware\us_ble.h
+ C:\Users\nicol\Documents\wulpus\fw\nrf52\ble_peripheral\US_probe_nRF52_firmware\us_ble.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/nrf_log_backend_rtt.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/nrf_log_backend_interface.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/memobj/nrf_memobj.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.62/include/stdlib.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/balloc/nrf_balloc.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/nrf_log_instance.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/experimental_section_vars/nrf_section.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/nrf_log_types.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/nrf_log.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/util/sdk_common.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.62/include/string.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/util/sdk_os.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/util/app_util.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/util/sdk_macros.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/strerror/nrf_strerror.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/src/nrf_log_internal.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/nrf_log_types.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/nrf_log_default_backends.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/nrf_log_ctrl.h \
+ C:/Users/nicol/nRF5_SDK_17.1.0_ddde560/nRF5_SDK_17.1.0_ddde560/components/libraries/log/src/nrf_log_ctrl_internal.h

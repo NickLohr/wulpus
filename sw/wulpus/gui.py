@@ -427,7 +427,13 @@ class WulpusGuiSingleCh(widgets.VBox):
             # Receive the data
             data = self.com_link.receive_data()
             if data is not None:
+                
 
+                if data[2] == 128:
+                    with open("test_d.json", "a+") as f:
+                        f.write(str(data)+"\n")
+                    #continue
+                    
                 self.current_data = data
 
                 if data[2] == self.rx_tx_conf_to_display and not self.bmode_check.value:
@@ -440,15 +446,12 @@ class WulpusGuiSingleCh(widgets.VBox):
                 self.acq_num_arr[self.data_cnt] = data[1]
                 self.tx_rx_id_arr[self.data_cnt] = data[2]
 
-                if data[2] == 128:
-                    print(data)
-                print("Raw data: ", data)
-                with open("test.json", "w+") as f:
-                    f.write(data)
+                
 
                 # Save data to specific z
-                self.data_arr_bmode[self.tx_rx_id_arr[self.data_cnt]] = self.get_envelope(
-                    self.filter_data(data[0]))
+                if self.tx_rx_id_arr[self.data_cnt] < 8:
+                    self.data_arr_bmode[self.tx_rx_id_arr[self.data_cnt]] = self.get_envelope(
+                        self.filter_data(data[0]))
                 
                 self.data_cnt = self.data_cnt + 1
 
